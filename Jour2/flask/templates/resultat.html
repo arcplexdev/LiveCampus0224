@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+Numero de dossier demandé : {{name}}
+
+
+<h1>Liste des commandes pour le client </h1>
+<ul>
+    {% for row in data %}
+        <li>{{ row }}</li>
+    {% endfor %}
+</ul>
+
+</body>
+</html>
