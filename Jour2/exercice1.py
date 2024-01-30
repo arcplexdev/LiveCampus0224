@@ -46,19 +46,15 @@ personnes.append(Person("NOM3", "PRENOM3", "20", 10))
 personnes.append(Person("NOM4", "PRENOM4", "21", 12))
 personnes.append(Person("NOM5", "PRENOM5", "22", 12))
 
-mycursor.execute("SELECT * FROM personnes;")
+mycursor.execute("SELECT nom,prenom,entreprise FROM personnes;")
 myresult = mycursor.fetchall()
-for resultat in myresult:
-    print(resultat)
-
-#J'ai un tableau (myresult) qui contient la DB existante et un tableau personnes qui contient ce que je veux entrer
 
 values = []
 for personne in personnes:
-    #Si personne.getTuple() n'est PAS dans result:
-    #values.append(personne.getTuple())
-
-#je veux intégrer ces 4 personnes dans la DB
+    if personne.checkExisting() in myresult:
+        print("%s existe déja"%(str(personne.checkExisting())))
+    else:
+        values.append(personne.getTuple())
 
 sql = "INSERT INTO personnes (nom, prenom, age, entreprise) VALUES (%s, %s, %s, %s)"
 mycursor.executemany(sql,values)
