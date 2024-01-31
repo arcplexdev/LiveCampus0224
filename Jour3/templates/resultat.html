@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Votre recherche</title>
     <link rel="stylesheet" href="https://cdn.metroui.org.ua/current/metro.css">
 </head>
 <body>
@@ -10,24 +10,14 @@ Numero de dossier demandé : {{name}}
 
 
 <h2>Liste des commandes pour le client </h2>
+
 <ul>
-    {% for row in data %}
-        <li>{{ row }}</li>
+{% for row in client %}
+        <li>Nom : {{ row[0] }}</li>
     {% endfor %}
 </ul>
 
-<h2>Seconde approche (formattée) :</h2>
-<ul>
-    {% for row in data %}
-        <li>
-            Numéro de commande: {{ row[1] }},
-            Date de la commande: {{ row[2].strftime('%d/%m/%Y') }},
-            Montant: {{ '%0.2f'|format(row[3]) }} €
-        </li>
-    {% endfor %}
-</ul>
 
-<h2>Dans un tableau :</h2>
 <table class="table">
     <thead><tr><th>Num</th><th>Date</th><th>Montant</th></tr></thead>
 
@@ -36,8 +26,6 @@ Numero de dossier demandé : {{name}}
     {% endfor %}
 
 </table>
-
-
 
 <script src="https://cdn.metroui.org.ua/current/metro.js"></script>
 </body>
