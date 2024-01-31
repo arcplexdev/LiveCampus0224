@@ -27,3 +27,8 @@ FROM personnes LEFT JOIN entreprise #-> Jointure (ici de type LEFT)
 ON entreprise.id = personnes.entreprise;  #-> Critere de jointure
 
 
+# Structure du env.py
+conf={
+    "secretLocal" = """,
+    "dbPassword" = ""
+}

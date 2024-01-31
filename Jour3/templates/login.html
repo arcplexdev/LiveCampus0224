@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Connexion</title>
+  <link rel="stylesheet" href="https://cdn.metroui.org.ua/current/metro.css">
+</head>
+
+<body>
+<H2>Connexion</H2>
+
+<div id="errorMessage" style="color: red;"></div>
+    <form action="/connexion" method="post">
+        <label for="username">Login:</label><br>
+        <input type="text" id="username" name="username"><br>
+       <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password"><br>
+        <input type="button" value="Connexion" onclick="submitForm()">
+
+
+        <script>
+function submitForm() {
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    fetch('/connexion', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            username: username,
+            password: password,
+        }),
+    })
+    .then(response => response.json())
+    // .then(data => console.log(data))
+    .then(data => {
+        if (data.msg && data.msg === "Mauvais identifiants") {
+        document.getElementById('errorMessage').innerText = "Mauvais identifiants. Veuillez réessayer.";
+        } else {
+        window.location.href = "/formulaire";
+        }
+    })
+        .catch((error) => console.error('Error:', error));
+
+
+
+}
+</script>
+
+</body>
+</html>
