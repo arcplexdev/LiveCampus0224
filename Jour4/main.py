@@ -1,5 +1,5 @@
 #Pour bien comprendre :
-#Gérer le cas d'inscire un utilisateur
+#Gérer le cas d'inscrire un utilisateur
 #stocker le JWT en, DB pour éviter que 2 sessions concurrentes
 
 #Dépendances
@@ -49,6 +49,10 @@ def generate_jwt(username):
     token = jwt.encode(payload, jwt_secret_key, algorithm='HS256')
     return token
 #renvoi le token
+
+
+@app.route('/register', methods=['GET','POST'])
+# Page permettant de se créer un compte
 
 #Route de connexion
 @app.route('/login', methods=['GET','POST'])
@@ -106,15 +110,17 @@ def login():
 @app.route('/protected')
 def protected():
     try:
-        #Je récupère le code
+        #Je récupère le token
         token = request.cookies.get('jwt')
         payload = jwt.decode(token, jwt_secret_key, algorithms=['HS256'])
         username = payload['username']
         return f'Bienvenue à toi {username}'
     except jwt.ExpiredSignatureError:
-        return "Token expiré"
+        response = make_response(redirect(url_for('login')))
+        return response
     except jwt.InvalidTokenError:
-        return "Token invalide"
+        response = make_response(redirect(url_for('login')))
+        return response
 
 if __name__ == "__main__":
     app.run(debug=True)
